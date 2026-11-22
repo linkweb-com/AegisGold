@@ -3,7 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEGISGOLD v3.6 - Liquid Glass Security Hub</title>
+    <title>AEGISGOLD v3.9 - Security & Deep Audit Hub</title>
+
+    <!-- Favicon Tab Trình Duyệt -->
+    <link rel="icon" type="image/png" href="Logo.png">
+
+    <!-- Icon khi Thêm Ra Màn Hình Chính (iOS / iPhone / iPad) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="Logo des.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="AegisGold">
+
+    <!-- Icon & Màu Thanh Trạng Thái cho Android (Chrome) -->
+    <link rel="icon" type="image/png" sizes="192x192" href="Logo des.png">
+    <meta name="theme-color" content="#0b0d13">
+
+    <!-- Meta Tags for Security & SEO -->
+    <meta name="description" content="Hệ thống tra cứu link lạ, anti-phishing và kiểm tra an toàn website đa tầng.">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,20 +30,13 @@
             theme: {
                 extend: {
                     colors: {
-                        google: {
-                            blue: '#8ab4f8',
-                            red: '#f28b82',
-                            yellow: '#fdd663',
-                            green: '#81c995',
-                        },
-                        gold: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            300: '#fcd34d',
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309',
+                        ag: {
+                            blue: '#60a5fa',
+                            green: '#34d399',
+                            amber: '#fbbf24',
+                            red: '#f87171',
+                            glass: 'rgba(20, 25, 36, 0.78)',
+                            border: 'rgba(255, 255, 255, 0.12)'
                         }
                     },
                     fontFamily: {
@@ -38,93 +48,65 @@
         }
     </script>
 
-    <!-- Google Fonts & Icons -->
+    <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { box-sizing: border-box; }
 
         body {
-            background-color: #0c0e14;
+            background-color: #0b0d13;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.12) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(138, 180, 248, 0.08) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(14, 16, 23, 0.95) 0px, #0c0e14 100%);
+                radial-gradient(at 0% 0%, rgba(96, 165, 250, 0.10) 0px, transparent 45%),
+                radial-gradient(at 100% 100%, rgba(251, 191, 36, 0.08) 0px, transparent 45%),
+                radial-gradient(at 50% 50%, rgba(13, 16, 24, 0.96) 0px, #0b0d13 100%);
             background-attachment: fixed;
-            color: #e8eaed;
+            color: #ffffff;
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             padding: 0;
             -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
         }
 
-        /* Liquid Glass Panels */
+        /* 4-Color Liquid Glass Classes */
         .g-glass {
-            background: rgba(23, 27, 38, 0.72);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            contain: layout style paint;
-            will-change: transform;
+            background: rgba(20, 25, 36, 0.78);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
         }
 
         .g-glass-gold {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(24, 28, 40, 0.75) 100%);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(245, 158, 11, 0.35);
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.12);
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(20, 25, 36, 0.8) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.1);
         }
 
+        /* Fully Rounded Pill Search Bar */
         .g-search-bar {
-            background: rgba(30, 35, 48, 0.85);
+            background: rgba(28, 34, 48, 0.88);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(245, 158, 11, 0.35);
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.12);
             transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
         }
 
         .g-search-bar:focus-within {
             border-color: #fbbf24;
-            background: rgba(34, 40, 56, 0.95);
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.25), 0 8px 32px rgba(0, 0, 0, 0.5);
+            background: rgba(33, 40, 56, 0.95);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.25), 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
-        .g-pill {
-            border-radius: 9999px;
-            transition: all 0.2s ease;
-        }
-
-        .g-pill:hover {
-            transform: translateY(-1px);
-        }
-
-        .text-google-gold {
-            background: linear-gradient(135deg, #ffffff 0%, #fde68a 50%, #f59e0b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        ::-webkit-scrollbar {
-            width: 7px;
-            height: 7px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0c0e14;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(245, 158, 11, 0.3);
-            border-radius: 9999px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(245, 158, 11, 0.6);
+        /* Plus Jakarta Sans for URL Input */
+        #url-input {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-weight: 500;
         }
 
         .circle-bg {
@@ -138,22 +120,25 @@
             stroke-linecap: round;
             transition: stroke-dashoffset 1s ease-out, stroke 0.4s ease;
         }
+
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: #0b0d13; }
+        ::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.3); border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(251, 191, 36, 0.6); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-gold-500/30 selection:text-gold-200">
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-500/30 selection:text-amber-200">
 
-    <!-- Toast Notification Overlay -->
+    <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
 
     <!-- HEADER / NAVIGATION -->
-    <header class="sticky top-0 z-40 border-b border-white/10 bg-[#0c0e14]/85 backdrop-blur-md">
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-[#0b0d13]/85 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             
-            <!-- Brand Identity (Đã xóa Badge Google 2026 Edition ở mục 1) -->
+            <!-- Brand Identity (Hiển thị Logo.png) -->
             <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <div class="w-10 h-10 rounded-2xl g-glass-gold flex items-center justify-center text-gold-400 font-bold shadow-lg">
-                    <i class="fa-solid fa-shield-halved text-lg"></i>
-                </div>
+                <img src="Logo.png" alt="AegisGold Logo" class="w-10 h-10 rounded-2xl object-contain shadow-lg border border-amber-400/30 p-0.5">
                 <div>
                     <span class="text-xl font-extrabold tracking-tight text-white">AegisGold</span>
                 </div>
@@ -162,14 +147,14 @@
             <!-- Top Utility Badges -->
             <div class="flex items-center space-x-3 text-xs">
                 <div class="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-full g-glass text-gray-300 border border-white/5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    <span>Zero-Log GPU Accelerated</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Zero-Log Protocol</span>
                 </div>
 
-                <button onclick="toggleHistoryModal(true)" class="flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold-500/15 hover:bg-gold-500/25 border border-gold-500/30 text-gold-300 transition">
+                <button onclick="toggleHistoryModal(true)" class="flex items-center space-x-2 px-4 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 transition">
                     <i class="fa-solid fa-clock-rotate-left"></i>
                     <span>Lịch Sử Scan</span>
-                    <span id="history-badge" class="bg-gold-500/40 text-gold-100 px-1.5 py-0.2 rounded-full font-mono text-[10px]">0</span>
+                    <span id="history-badge" class="bg-amber-500/40 text-amber-100 px-1.5 py-0.2 rounded-full font-mono text-[10px]">0</span>
                 </button>
             </div>
         </div>
@@ -178,33 +163,35 @@
     <!-- MAIN CONTAINER -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 space-y-10 flex-grow w-full">
 
-        <!-- HERO SECTION (Đã xóa mục 2 & 3 theo yêu cầu) -->
+        <!-- HERO SECTION -->
         <section class="max-w-4xl mx-auto text-center space-y-6 pt-2">
 
             <!-- Title -->
             <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
                 Tra Cứu Link Lạ &amp; <br/>
-                <span class="text-google-gold">Phân Tích Đa Tầng Chống Lừa Đảo</span>
+                <span class="bg-gradient-to-r from-white via-amber-200 to-amber-400 bg-clip-text text-transparent">Phân Tích Đa Tầng Chống Lừa Đảo</span>
             </h1>
 
-            <!-- SEARCH BAR -->
+            <!-- SEARCH BAR (THANH CHỮ NHẬT TRÒN 2 ĐẦU - PILL SHAPE) -->
             <div class="relative max-w-3xl mx-auto">
-                <div class="g-search-bar rounded-full p-2 pl-5 flex items-center gap-3">
+                <div class="g-search-bar rounded-full p-2 pl-6 flex items-center gap-3">
                     
-                    <i class="fa-solid fa-magnifying-glass text-gold-400 text-lg"></i>
+                    <i class="fa-solid fa-magnifying-glass text-amber-400 text-lg"></i>
 
+                    <!-- URL Input với Font Plus Jakarta Sans -->
                     <input 
                         type="text" 
                         id="url-input"
-                        placeholder="Dán hoặc nhập URL cần kiểm tra an toàn (VD: https://bank-login-secure.xyz)..."
-                        class="w-full bg-transparent text-gray-100 placeholder-gray-500 text-sm focus:outline-none font-mono py-2"
+                        placeholder="Dán hoặc nhập URL cần kiểm tra (ví dụ: https://example.com)..."
+                        class="w-full bg-transparent text-white placeholder-gray-400 text-sm sm:text-base focus:outline-none py-2 text-left"
                         onkeydown="if(event.key === 'Enter') executeScan()"
                         autocomplete="off"
+                        spellcheck="false"
                     />
 
-                    <!-- Quick Actions -->
+                    <!-- Actions -->
                     <div class="flex items-center gap-2 pr-1">
-                        <button onclick="pasteClipboard()" title="Dán từ Clipboard" class="p-2.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-gold-300 transition">
+                        <button onclick="pasteClipboard()" title="Dán từ bộ nhớ tạm" class="p-2.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-amber-300 transition">
                             <i class="fa-solid fa-paste"></i>
                         </button>
 
@@ -215,7 +202,7 @@
                         <button 
                             onclick="executeScan()"
                             id="btn-scan"
-                            class="g-pill px-6 py-2.5 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-gold-500 text-slate-950 font-bold text-xs shadow-lg shadow-gold-500/20 whitespace-nowrap flex items-center gap-2"
+                            class="px-6 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 whitespace-nowrap flex items-center gap-2 transition"
                         >
                             <i class="fa-solid fa-shield-check text-sm"></i>
                             <span>TRUY CỨU</span>
@@ -223,9 +210,9 @@
                     </div>
                 </div>
 
-                <!-- Mục 4: GIỮ NGUYÊN các mẫu link nhanh -->
+                <!-- SAMPLE LINKS -->
                 <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs">
-                    <span class="text-gray-500">Mẫu nhanh:</span>
+                    <span class="text-gray-400">Mẫu nhanh:</span>
                     <button onclick="setSample('safe')" class="px-3 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[11px]">
                         ✓ Link An Toàn (Bank/Gov)
                     </button>
@@ -240,33 +227,88 @@
 
         </section>
 
-        <!-- SCAN PROGRESS OVERLAY (HIDDEN UNTIL SCAN) -->
-        <section id="scan-progress-box" class="hidden max-w-3xl mx-auto">
-            <div class="g-glass rounded-3xl p-6 border border-gold-500/30 space-y-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <i class="fa-solid fa-atom text-gold-400 text-xl animate-spin"></i>
-                        <div>
-                            <h3 class="text-sm font-bold text-white" id="progress-title">Đang kết nối các cụm máy chủ an ninh...</h3>
-                            <p class="text-xs text-gray-400 font-mono" id="progress-sub">Khởi chạy quy tắc phân tích cú pháp Heuristics...</p>
+        <!-- MULTINATIONAL SECURITY NODES (MÔ PHỎNG QUÉT) -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-network-wired text-amber-400"></i>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider">Cụm Máy Chủ An Ninh Đa Quốc Gia</h3>
+                </div>
+                <span class="text-xs font-mono text-emerald-400 font-semibold">4/4 Nodes Ready</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div id="node-us" class="g-glass rounded-2xl p-4 border border-white/10">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xl">🇺🇸</span>
+                            <span class="text-xs font-bold text-white">Hoa Kỳ (USA)</span>
                         </div>
+                        <span id="node-status-us" class="px-2 py-0.5 rounded text-[10px] font-mono bg-gray-800 text-gray-400">Chờ lệnh</span>
                     </div>
-                    <span id="progress-val" class="text-lg font-bold font-mono text-gold-400">0%</span>
+                    <p class="text-[11px] text-gray-400 font-mono">VirusTotal / US CISA Engine</p>
                 </div>
 
-                <!-- Progress Bar -->
-                <div class="w-full h-2.5 bg-gray-900 rounded-full overflow-hidden p-0.5 border border-white/5">
-                    <div id="progress-bar" class="h-full bg-gradient-to-r from-gold-500 to-amber-400 rounded-full transition-all duration-200 w-0"></div>
+                <div id="node-fr" class="g-glass rounded-2xl p-4 border border-white/10">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xl">🇫🇷</span>
+                            <span class="text-xs font-bold text-white">Pháp (France)</span>
+                        </div>
+                        <span id="node-status-fr" class="px-2 py-0.5 rounded text-[10px] font-mono bg-gray-800 text-gray-400">Chờ lệnh</span>
+                    </div>
+                    <p class="text-[11px] text-gray-400 font-mono">ANSSI / EU Phish Registry</p>
                 </div>
 
-                <!-- Live Log -->
-                <div id="progress-log" class="bg-black/60 rounded-2xl p-3 font-mono text-[11px] text-gray-300 h-20 overflow-y-auto border border-white/5 space-y-1">
-                    <p class="text-gold-400">[INIT] AegisGold Security Engine Ready.</p>
+                <div id="node-eu" class="g-glass rounded-2xl p-4 border border-white/10">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xl">🇪🇺</span>
+                            <span class="text-xs font-bold text-white">Châu Âu (EU)</span>
+                        </div>
+                        <span id="node-status-eu" class="px-2 py-0.5 rounded text-[10px] font-mono bg-gray-800 text-gray-400">Chờ lệnh</span>
+                    </div>
+                    <p class="text-[11px] text-gray-400 font-mono">ENISA / PhishTank Node</p>
+                </div>
+
+                <div id="node-vn" class="g-glass rounded-2xl p-4 border border-white/10">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xl">🇻🇳</span>
+                            <span class="text-xs font-bold text-white">Việt Nam</span>
+                        </div>
+                        <span id="node-status-vn" class="px-2 py-0.5 rounded text-[10px] font-mono bg-gray-800 text-gray-400">Chờ lệnh</span>
+                    </div>
+                    <p class="text-[11px] text-gray-400 font-mono">NCSC / ChongLuaDao DB</p>
                 </div>
             </div>
         </section>
 
-        <!-- AUDIT RESULTS DASHBOARD (HIDDEN UNTIL FINISHED) -->
+        <!-- SCAN PROGRESS OVERLAY -->
+        <section id="scan-progress-box" class="hidden max-w-3xl mx-auto">
+            <div class="g-glass rounded-3xl p-6 border border-amber-500/30 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-atom text-amber-400 text-xl animate-spin"></i>
+                        <div>
+                            <h3 class="text-sm font-bold text-white" id="progress-title">Đang kết nối các cụm máy chủ an ninh...</h3>
+                            <p class="text-xs text-gray-400 font-mono" id="progress-sub">Khởi chạy phân tích Heuristics & Cú pháp URL...</p>
+                        </div>
+                    </div>
+                    <span id="progress-val" class="text-lg font-bold font-mono text-amber-400">0%</span>
+                </div>
+
+                <div class="w-full h-2.5 bg-gray-900 rounded-full overflow-hidden p-0.5 border border-white/5">
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-yellow-400 rounded-full transition-all duration-200 w-0"></div>
+                </div>
+
+                <div id="progress-log" class="bg-black/60 rounded-2xl p-3 font-mono text-[11px] text-gray-300 h-20 overflow-y-auto border border-white/5 space-y-1">
+                    <p class="text-amber-400">[INIT] AegisGold Engine Ready.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AUDIT RESULTS DASHBOARD -->
         <section id="audit-results" class="hidden space-y-8">
             <div class="g-glass rounded-3xl p-6 sm:p-8 border border-white/10 space-y-8">
                 
@@ -297,11 +339,72 @@
                         </div>
                     </div>
 
-                    <!-- Quick Action -->
                     <div class="flex items-center gap-3">
                         <button onclick="copyLink()" class="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold text-gray-200 transition flex items-center gap-2">
-                            <i class="fa-solid fa-copy text-gold-400"></i> Copy Link
+                            <i class="fa-solid fa-copy text-amber-400"></i> Copy Link
                         </button>
+                    </div>
+                </div>
+
+                <!-- LIVE PREVIEW CONTAINER -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-window-restore text-amber-400"></i>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Xem Trước Giao Diện Web (Live Sandbox Preview)</h3>
+                        </div>
+                        <span class="text-xs text-emerald-400 font-mono flex items-center gap-1.5">
+                            <i class="fa-solid fa-lock text-[10px]"></i> Read-Only Mode
+                        </span>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/15 bg-black/80 overflow-hidden shadow-2xl relative">
+                        <div class="px-4 py-2.5 bg-gray-900 border-b border-white/10 flex items-center justify-between gap-3 text-xs">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                            </div>
+
+                            <div class="flex-grow max-w-xl mx-auto px-3 py-1 rounded-full bg-black/60 border border-white/10 font-mono text-[11px] text-gray-300 truncate flex items-center gap-2">
+                                <i id="preview-lock-icon" class="fa-solid fa-lock text-emerald-400 text-[10px]"></i>
+                                <span id="preview-url-display" class="truncate">https://domain.com</span>
+                            </div>
+
+                            <div class="flex items-center space-x-2 text-gray-400">
+                                <button onclick="reloadPreview()" title="Tải lại" class="p-1.5 hover:text-white transition">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </button>
+                                <button onclick="openExternalTab()" title="Mở tab mới" class="p-1.5 hover:text-white transition">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </button>
+                                <button onclick="toggleFullscreenPreview(true)" title="Phóng to toàn màn hình" class="p-1.5 px-2.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold transition flex items-center gap-1">
+                                    <i class="fa-solid fa-expand text-xs"></i>
+                                    <span class="text-[11px]">Phóng To</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="relative h-[400px] w-full bg-gray-950 overflow-hidden">
+                            <iframe 
+                                id="web-preview-iframe" 
+                                class="w-full h-full border-none"
+                                sandbox="allow-scripts allow-same-origin"
+                                src="about:blank"
+                                title="Web Preview Sandbox"
+                            ></iframe>
+                            
+                            <div id="iframe-fallback-notice" class="hidden absolute inset-0 bg-gray-950/95 flex flex-col items-center justify-center p-6 text-center space-y-3 z-20">
+                                <i class="fa-solid fa-shield-virus text-amber-400 text-3xl"></i>
+                                <h4 class="text-sm font-bold text-white">Trang web chặn hiển thị nhúng (X-Frame-Options)</h4>
+                                <p class="text-xs text-gray-400 max-w-md">
+                                    Website này cài đặt chính sách an toàn từ chối nhúng trong Iframe. Bạn có thể tra cứu nhanh qua các Engine an toàn bên dưới.
+                                </p>
+                                <button onclick="openExternalTab()" class="px-4 py-2 rounded-full bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 transition">
+                                    Mở Xem Trong Tab Mới
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -309,10 +412,10 @@
                 <div class="space-y-4">
                     <div class="flex items-center justify-between border-b border-white/10 pb-3">
                         <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-microscope text-gold-400 text-base"></i>
+                            <i class="fa-solid fa-microscope text-amber-400 text-base"></i>
                             <h3 class="text-sm font-bold text-white uppercase tracking-wider">Mở Rộng Kiểm Tra Chuyên Sâu Cùng Các Engine Quốc Tế</h3>
                         </div>
-                        <span class="text-xs text-gold-300 font-mono">10+ Deep Analysis Tools</span>
+                        <span class="text-xs text-amber-300 font-mono">10+ Deep Analysis Tools</span>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="deep-engines-grid"></div>
@@ -321,7 +424,7 @@
                 <!-- RISK MATRIX CARDS -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div class="g-glass rounded-2xl p-5 border border-white/5 space-y-3">
-                        <div class="flex items-center space-x-2 text-gold-400">
+                        <div class="flex items-center space-x-2 text-amber-400">
                             <i class="fa-solid fa-user-shield"></i>
                             <h4 class="text-xs font-bold uppercase tracking-wider text-white">Thu Thập Dữ Liệu Cá Nhân</h4>
                         </div>
@@ -329,7 +432,7 @@
                     </div>
 
                     <div class="g-glass rounded-2xl p-5 border border-white/5 space-y-3">
-                        <div class="flex items-center space-x-2 text-gold-400">
+                        <div class="flex items-center space-x-2 text-amber-400">
                             <i class="fa-solid fa-mask"></i>
                             <h4 class="text-xs font-bold uppercase tracking-wider text-white">Giả Mạo & Typosquatting</h4>
                         </div>
@@ -337,7 +440,7 @@
                     </div>
 
                     <div class="g-glass rounded-2xl p-5 border border-white/5 space-y-3">
-                        <div class="flex items-center space-x-2 text-gold-400">
+                        <div class="flex items-center space-x-2 text-amber-400">
                             <i class="fa-solid fa-network-wired"></i>
                             <h4 class="text-xs font-bold uppercase tracking-wider text-white">Hạ Tầng & Mã Hóa SSL</h4>
                         </div>
@@ -345,46 +448,45 @@
                     </div>
                 </div>
 
-                <!-- RECOMMENDATION BOX -->
+                <!-- RECOMMENDATION BANNER -->
                 <div id="recommendation-banner" class="rounded-2xl p-5 border space-y-2 text-xs"></div>
 
             </div>
         </section>
 
-        <!-- MỤC A: SỬA HOÀN TOÀN GIỐNG ẢNH IMAGE_61D2E3.JPG -->
+        <!-- CAM KẾT BẢO VỆ QUYỀN RIÊNG TƯ & 4 DẤU HIỆU -->
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4">
             
-            <!-- THẺ TRAI: CAM KẾT BẢO VỆ QUYỀN RIÊNG TƯ -->
-            <div class="g-glass-gold rounded-3xl p-6 border border-gold-400/30 space-y-4">
-                <div class="w-12 h-12 rounded-2xl bg-gold-500/20 flex items-center justify-center border border-gold-400/40 text-gold-300 text-2xl">
+            <!-- THẺ TRAI -->
+            <div class="g-glass-gold rounded-3xl p-6 border border-amber-400/30 space-y-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center border border-amber-400/40 text-amber-300 text-2xl">
                     <i class="fa-solid fa-lock"></i>
                 </div>
                 <h3 class="text-lg font-bold text-white">Cam Kết Bảo Vệ Quyền Riêng Tư</h3>
                 <p class="text-xs text-gray-300 leading-relaxed">
-                    Hệ thống AegisGold vận hành theo cơ chế <strong class="text-gold-300">Zero-Log Policy</strong>. Tất cả thuật toán phân tích cú pháp và phát hiện bất thường được xử lý an toàn, không thu thập IP, không lưu trữ liên kết hay dữ liệu cá nhân của người truy vấn.
+                    Hệ thống AegisGold vận hành theo cơ chế <strong class="text-amber-300">Zero-Log Policy</strong>. Tất cả thuật toán phân tích cú pháp và phát hiện bất thường được xử lý an toàn, không thu thập IP, không lưu trữ liên kết hay dữ liệu cá nhân của người truy vấn.
                 </p>
                 <ul class="text-xs text-gray-300 space-y-2.5 font-medium pt-1">
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-400"></i> Không lưu trữ lịch sử trên Server</li>
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-400"></i> Không theo dõi cookie hay dấu vết trình duyệt</li>
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-400"></i> Dữ liệu lưu vết duy nhất nằm ở máy bạn (Local)</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Không lưu trữ lịch sử trên Server</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Không theo dõi cookie hay dấu vết trình duyệt</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Dữ liệu lưu vết duy nhất nằm ở máy bạn (Local)</li>
                 </ul>
             </div>
 
-            <!-- THẺ PHẢI: 4 DẤU HIỆU NHẬN BIẾT LINK LỪA ĐẢO PHỔ BIẾN (LƯỚI 4 Ô DẠNG THẺ) -->
+            <!-- THẺ PHẢI -->
             <div class="lg:col-span-2 g-glass rounded-3xl p-6 border border-white/10 space-y-5">
                 <div class="flex items-center justify-between border-b border-white/10 pb-3">
                     <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-graduation-cap text-gold-400 text-lg"></i>
+                        <i class="fa-solid fa-graduation-cap text-amber-400 text-lg"></i>
                         <h3 class="text-base font-bold text-white">4 Dấu Hiệu Nhận Biết Link Lừa Đảo Phổ Biến</h3>
                     </div>
-                    <span class="text-xs text-gold-400 font-mono">Cẩm Nang An Toàn</span>
+                    <span class="text-xs text-amber-400 font-mono">Cẩm Nang An Toàn</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Rule 1 -->
-                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/30 transition space-y-1.5">
-                        <div class="flex items-center gap-2 text-xs font-bold text-gold-300">
-                            <span class="w-5 h-5 rounded-full bg-gold-500/20 flex items-center justify-center text-[11px] text-gold-400">1</span>
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-amber-500/30 transition space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs font-bold text-amber-300">
+                            <span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-[11px] text-amber-400">1</span>
                             Sai Chính Tả (Typosquatting)
                         </div>
                         <p class="text-xs text-gray-400 leading-relaxed">
@@ -392,10 +494,9 @@
                         </p>
                     </div>
 
-                    <!-- Rule 2 -->
-                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/30 transition space-y-1.5">
-                        <div class="flex items-center gap-2 text-xs font-bold text-gold-300">
-                            <span class="w-5 h-5 rounded-full bg-gold-500/20 flex items-center justify-center text-[11px] text-gold-400">2</span>
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-amber-500/30 transition space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs font-bold text-amber-300">
+                            <span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-[11px] text-amber-400">2</span>
                             Tên Miền Phụ Đánh Lừa
                         </div>
                         <p class="text-xs text-gray-400 leading-relaxed">
@@ -403,10 +504,9 @@
                         </p>
                     </div>
 
-                    <!-- Rule 3 -->
-                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/30 transition space-y-1.5">
-                        <div class="flex items-center gap-2 text-xs font-bold text-gold-300">
-                            <span class="w-5 h-5 rounded-full bg-gold-500/20 flex items-center justify-center text-[11px] text-gold-400">3</span>
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-amber-500/30 transition space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs font-bold text-amber-300">
+                            <span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-[11px] text-amber-400">3</span>
                             Yêu Cầu Nhập OTP / Mật Khẩu
                         </div>
                         <p class="text-xs text-gray-400 leading-relaxed">
@@ -414,10 +514,9 @@
                         </p>
                     </div>
 
-                    <!-- Rule 4 -->
-                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/30 transition space-y-1.5">
-                        <div class="flex items-center gap-2 text-xs font-bold text-gold-300">
-                            <span class="w-5 h-5 rounded-full bg-gold-500/20 flex items-center justify-center text-[11px] text-gold-400">4</span>
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-amber-500/30 transition space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs font-bold text-amber-300">
+                            <span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-[11px] text-amber-400">4</span>
                             Che Giấu Bằng Link Rút Gọn
                         </div>
                         <p class="text-xs text-gray-400 leading-relaxed">
@@ -431,19 +530,39 @@
 
     </main>
 
-    <!-- FOOTER (ĐÃ XÓA MỤC B VÀ CĂN GIỮA MỤC C CÙNG DÒNG COPYRIGHT ACCORDING TO USER REQ) -->
-    <footer class="border-t border-white/10 bg-[#0c0e14] py-6 text-center text-xs text-gray-500">
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 bg-[#0b0d13] py-6 text-center text-xs text-gray-500">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-center">
             <span>Copyright © 2026 AegisGold Security Protocol. All rights reserved. • GPU Accelerated • Zero-Log Policy</span>
         </div>
     </footer>
 
+    <!-- FULLSCREEN LIVE PREVIEW MODAL -->
+    <div id="fullscreen-preview-modal" class="fixed inset-0 z-50 bg-black/95 flex flex-col hidden">
+        <div class="px-6 py-3 bg-gray-900 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-expand text-amber-400"></i>
+                <span class="text-sm font-bold text-white">Safe Fullscreen Preview Window</span>
+                <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono">Read-Only Mode</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span id="fs-url-display" class="text-xs font-mono text-gray-400 hidden sm:inline">https://domain.com</span>
+                <button onclick="toggleFullscreenPreview(false)" class="px-4 py-1.5 rounded-full bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-xmark"></i> Đóng Màn Hình
+                </button>
+            </div>
+        </div>
+        <div class="flex-grow w-full h-full relative bg-gray-950">
+            <iframe id="fs-iframe" class="w-full h-full border-none" sandbox="allow-scripts allow-same-origin" src="about:blank"></iframe>
+        </div>
+    </div>
+
     <!-- HISTORY MODAL -->
     <div id="history-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-        <div class="g-glass rounded-3xl border border-gold-500/30 max-w-lg w-full p-6 space-y-4 shadow-2xl">
+        <div class="g-glass rounded-3xl border border-amber-500/30 max-w-lg w-full p-6 space-y-4 shadow-2xl">
             <div class="flex items-center justify-between border-b border-white/10 pb-3">
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-clock-rotate-left text-gold-400"></i> Lịch Sử Tra Cứu (Local Browser)
+                    <i class="fa-solid fa-clock-rotate-left text-amber-400"></i> Lịch Sử Tra Cứu (Local Browser)
                 </h3>
                 <button onclick="toggleHistoryModal(false)" class="text-gray-400 hover:text-white">
                     <i class="fa-solid fa-xmark"></i>
@@ -454,12 +573,12 @@
 
             <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
                 <button onclick="clearHistory()" class="text-rose-400 hover:text-rose-300">Xóa Lịch Sử</button>
-                <button onclick="toggleHistoryModal(false)" class="px-4 py-1.5 rounded-full bg-gold-500 text-slate-950 font-bold">Đóng</button>
+                <button onclick="toggleHistoryModal(false)" class="px-4 py-1.5 rounded-full bg-amber-500 text-slate-950 font-bold">Đóng</button>
             </div>
         </div>
     </div>
 
-    <!-- MAIN SCRIPT ENGINE -->
+    <!-- MAIN JAVASCRIPT ENGINE -->
     <script>
         const TRUSTED_DOMAINS = [
             'gov.vn', 'chinhphu.vn', 'sbv.gov.vn', 'ncsc.gov.vn', 'tinnhiemmang.vn',
@@ -474,13 +593,16 @@
         const PHISH_KEYWORDS = ['login-secure', 'verify-account', 'nhanquatang', 'nhan-qua', 'xacthuc-taikhoan', 'claim-reward', 'free-gift', 'banking-update'];
 
         let historyData = JSON.parse(localStorage.getItem('aegis_history') || '[]');
+        let currentAuditedUrl = '';
 
-        document.addEventListener('DOMContentLoaded', updateHistoryBadge);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateHistoryBadge();
+        });
 
         function showToast(msg, type = 'info') {
             const container = document.getElementById('toast-container');
             const el = document.createElement('div');
-            let border = type === 'error' ? 'border-rose-500/50 bg-rose-950/90 text-rose-200' : 'border-gold-500/40 bg-gray-900/90 text-gold-200';
+            let border = type === 'error' ? 'border-rose-500/50 bg-rose-950/90 text-rose-200' : 'border-amber-500/40 bg-gray-900/90 text-amber-200';
             el.className = `pointer-events-auto px-4 py-2.5 rounded-2xl g-glass border text-xs font-medium backdrop-blur-md shadow-xl transition-all duration-300 ${border}`;
             el.innerText = msg;
             container.appendChild(el);
@@ -498,6 +620,7 @@
 
         function clearInput() {
             document.getElementById('url-input').value = '';
+            document.getElementById('url-input').focus();
         }
 
         function setSample(type) {
@@ -585,6 +708,8 @@
                 return;
             }
 
+            currentAuditedUrl = data.rawUrl;
+
             const box = document.getElementById('scan-progress-box');
             const res = document.getElementById('audit-results');
             
@@ -597,41 +722,51 @@
             
             bar.style.width = '0%';
             val.innerText = '0%';
-            log.innerHTML = `<p class="text-gold-400">[INIT] Starting AegisGold Engine for ${data.hostname}...</p>`;
+            log.innerHTML = `<p class="text-amber-400">[INIT] Starting AegisGold Engine for ${data.hostname}...</p>`;
+
+            ['us', 'fr', 'eu', 'vn'].forEach(code => {
+                const nodeBadge = document.getElementById(`node-status-${code}`);
+                nodeBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300 animate-pulse';
+                nodeBadge.innerText = 'Đang quét...';
+            });
 
             let p = 0;
             const steps = [
-                'Kết nối VirusTotal Deep API & Sandbox Nodes...',
-                'Phân tích cây chuyển hướng HTTP & SSL Certificate...',
-                'Đối chiếu CSDL Chống Lừa Đảo Việt Nam (NCSC/ChongLuaDao)...',
-                'Quét dấu hiệu Typosquatting & Homograph Attack...',
-                'Tổng hợp báo cáo đánh giá an toàn...'
+                { p: 25, msg: 'Kết nối VirusTotal Deep API & US Nodes...', node: 'us' },
+                { p: 50, msg: 'Đối chiếu ANSSI & CSDL Phishing Pháp...', node: 'fr' },
+                { p: 75, msg: 'Kiểm tra ENISA & PhishTank Châu Âu...', node: 'eu' },
+                { p: 90, msg: 'Đối chiếu NCSC & ChongLuaDao Việt Nam...', node: 'vn' },
+                { p: 100, msg: 'Tổng hợp báo cáo đánh giá an toàn đa quốc gia...', node: null }
             ];
 
             let sIdx = 0;
             const timer = setInterval(() => {
-                p += 20;
-                bar.style.width = `${p}%`;
-                val.innerText = `${p}%`;
-
                 if (sIdx < steps.length) {
+                    const step = steps[sIdx];
+                    bar.style.width = `${step.p}%`;
+                    val.innerText = `${step.p}%`;
+
+                    if (step.node) {
+                        const nodeBadge = document.getElementById(`node-status-${step.node}`);
+                        nodeBadge.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300';
+                        nodeBadge.innerText = 'ONLINE';
+                    }
+
                     const line = document.createElement('p');
                     line.className = 'text-gray-300';
-                    line.innerHTML = `<span class="text-gold-500">[${new Date().toLocaleTimeString()}]</span> ${steps[sIdx]}`;
+                    line.innerHTML = `<span class="text-amber-500">[${new Date().toLocaleTimeString()}]</span> ${step.msg}`;
                     log.appendChild(line);
                     log.scrollTop = log.scrollHeight;
                     sIdx++;
-                }
-
-                if (p >= 100) {
+                } else {
                     clearInterval(timer);
                     setTimeout(() => {
                         box.classList.add('hidden');
                         displayResult(data);
                         saveHistory(data);
-                    }, 400);
+                    }, 350);
                 }
-            }, 300);
+            }, 280);
         }
 
         function displayResult(data) {
@@ -652,22 +787,23 @@
             const desc = document.getElementById('result-desc');
 
             if (data.isSafe) {
-                scoreCircle.style.stroke = '#81c995';
+                scoreCircle.style.stroke = '#34d399';
                 verdictTag.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
                 verdictTag.innerHTML = '<i class="fa-solid fa-shield-check"></i> AN TOÀN TUYỆT ĐỐI';
                 desc.innerText = 'Website đạt chỉ số an toàn cao, không phát hiện mã độc hay giả mạo.';
             } else if (data.isCaution) {
-                scoreCircle.style.stroke = '#fdd663';
+                scoreCircle.style.stroke = '#fbbf24';
                 verdictTag.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30';
                 verdictTag.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> THẬN TRỌNG TRUY CẬP';
                 desc.innerText = 'Đường dẫn có một số điểm bất thường (Link rút gọn, thiếu HTTPS hoặc tên miền mới).';
             } else {
-                scoreCircle.style.stroke = '#f28b82';
+                scoreCircle.style.stroke = '#f87171';
                 verdictTag.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30';
                 verdictTag.innerHTML = '<i class="fa-solid fa-skull-crossbones"></i> CẢNH BÁO LỪA ĐẢO NGUY HIỂM';
                 desc.innerText = 'Phát hiện kịch bản giả mạo thương hiệu / đánh cắp tài khoản ngân hàng!';
             }
 
+            setupLivePreview(data.rawUrl, data.isHttps);
             renderDeepEngines(data.hostname, data.rawUrl);
 
             document.getElementById('card-privacy-list').innerHTML = `
@@ -695,6 +831,51 @@
             }
         }
 
+        function setupLivePreview(url, isHttps) {
+            document.getElementById('preview-url-display').innerText = url;
+            document.getElementById('fs-url-display').innerText = url;
+            const iframe = document.getElementById('web-preview-iframe');
+            const fsIframe = document.getElementById('fs-iframe');
+            const fallback = document.getElementById('iframe-fallback-notice');
+            const lockIcon = document.getElementById('preview-lock-icon');
+
+            if (isHttps) {
+                lockIcon.className = "fa-solid fa-lock text-emerald-400 text-[10px]";
+            } else {
+                lockIcon.className = "fa-solid fa-lock-open text-rose-400 text-[10px]";
+            }
+
+            fallback.classList.add('hidden');
+            iframe.src = url;
+            fsIframe.src = url;
+
+            iframe.onerror = function() {
+                fallback.classList.remove('hidden');
+            };
+        }
+
+        function reloadPreview() {
+            if (currentAuditedUrl) {
+                setupLivePreview(currentAuditedUrl, currentAuditedUrl.startsWith('https'));
+                showToast('Đã tải lại khung Live Preview!');
+            }
+        }
+
+        function openExternalTab() {
+            if (currentAuditedUrl) {
+                window.open(currentAuditedUrl, '_blank', 'noopener,noreferrer');
+            }
+        }
+
+        function toggleFullscreenPreview(show) {
+            const modal = document.getElementById('fullscreen-preview-modal');
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
         function renderDeepEngines(domain, fullUrl) {
             const grid = document.getElementById('deep-engines-grid');
             const encodedUrl = encodeURIComponent(fullUrl);
@@ -715,17 +896,17 @@
             let html = '';
             engines.forEach(e => {
                 html += `
-                    <a href="${e.link}" target="_blank" class="p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/40 hover:bg-gold-500/10 transition flex items-center justify-between group">
+                    <a href="${e.link}" target="_blank" class="p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-amber-500/40 hover:bg-amber-500/10 transition flex items-center justify-between group">
                         <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 rounded-xl bg-gold-500/15 text-gold-400 flex items-center justify-center text-xs font-bold">
+                            <div class="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-xs font-bold">
                                 <i class="${e.icon}"></i>
                             </div>
                             <div>
-                                <h5 class="text-xs font-bold text-white group-hover:text-gold-300 transition">${e.name}</h5>
+                                <h5 class="text-xs font-bold text-white group-hover:text-amber-300 transition">${e.name}</h5>
                                 <p class="text-[10px] text-gray-400">${e.desc}</p>
                             </div>
                         </div>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-gray-500 group-hover:text-gold-300"></i>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-gray-500 group-hover:text-amber-300"></i>
                     </a>
                 `;
             });
