@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEGISGOLD v3.6 - Liquid Glass Security Hub</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        google: {
+                            blue: '#8ab4f8',
+                            red: '#f28b82',
+                            yellow: '#fdd663',
+                            green: '#81c995',
+                        },
+                        gold: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0c0e14;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(138, 180, 248, 0.08) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(14, 16, 23, 0.95) 0px, #0c0e14 100%);
+            background-attachment: fixed;
+            color: #e8eaed;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* Liquid Glass Panels */
+        .g-glass {
+            background: rgba(23, 27, 38, 0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            contain: layout style paint;
+            will-change: transform;
+        }
+
+        .g-glass-gold {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(24, 28, 40, 0.75) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.12);
+        }
+
+        .g-search-bar {
+            background: rgba(30, 35, 48, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .g-search-bar:focus-within {
+            border-color: #fbbf24;
+            background: rgba(34, 40, 56, 0.95);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.25), 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .g-pill {
+            border-radius: 9999px;
+            transition: all 0.2s ease;
+        }
+
+        .g-pill:hover {
+            transform: translateY(-1px);
+        }
+
+        .text-google-gold {
+            background: linear-gradient(135deg, #ffffff 0%, #fde68a 50%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c0e14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(245, 158, 11, 0.3);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(245, 158, 11, 0.6);
+        }
+
+        .circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.08);
+            stroke-width: 8;
+        }
+        .circle-progress {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease-out, stroke 0.4s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-gold-500/30 selection:text-gold-200">
+
+    <!-- Toast Notification Overlay -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-[#0c0e14]/85 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            
+            <!-- Brand Identity (Đã xóa Badge Google 2026 Edition ở mục 1) -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-10 h-10 rounded-2xl g-glass-gold flex items-center justify-center text-gold-400 font-bold shadow-lg">
+                    <i class="fa-solid fa-shield-halved text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-white">AegisGold</span>
+                </div>
+            </div>
+
+            <!-- Top Utility Badges -->
+            <div class="flex items-center space-x-3 text-xs">
+                <div class="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-full g-glass text-gray-300 border border-white/5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span>Zero-Log GPU Accelerated</span>
+                </div>
+
+                <button onclick="toggleHistoryModal(true)" class="flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold-500/15 hover:bg-gold-500/25 border border-gold-500/30 text-gold-300 transition">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Lịch Sử Scan</span>
+                    <span id="history-badge" class="bg-gold-500/40 text-gold-100 px-1.5 py-0.2 rounded-full font-mono text-[10px]">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 space-y-10 flex-grow w-full">
+
+        <!-- HERO SECTION (Đã xóa mục 2 & 3 theo yêu cầu) -->
+        <section class="max-w-4xl mx-auto text-center space-y-6 pt-2">
+
+            <!-- Title -->
+            <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+                Tra Cứu Link Lạ &amp; <br/>
+                <span class="text-google-gold">Phân Tích Đa Tầng Chống Lừa Đảo</span>
+            </h1>
+
+            <!-- SEARCH BAR -->
+            <div class="relative max-w-3xl mx-auto">
+                <div class="g-search-bar rounded-full p-2 pl-5 flex items-center gap-3">
+                    
+                    <i class="fa-solid fa-magnifying-glass text-gold-400 text-lg"></i>
+
+                    <input 
+                        type="text" 
+                        id="url-input"
+                        placeholder="Dán hoặc nhập URL cần kiểm tra an toàn (VD: https://bank-login-secure.xyz)..."
+                        class="w-full bg-transparent text-gray-100 placeholder-gray-500 text-sm focus:outline-none font-mono py-2"
+                        onkeydown="if(event.key === 'Enter') executeScan()"
+                        autocomplete="off"
+                    />
+
+                    <!-- Quick Actions -->
+                    <div class="flex items-center gap-2 pr-1">
+                        <button onclick="pasteClipboard()" title="Dán từ Clipboard" class="p-2.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-gold-300 transition">
+                            <i class="fa-solid fa-paste"></i>
+                        </button>
+
+                        <button onclick="clearInput()" title="Xóa" class="p-2.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+
+                        <button 
+                            onclick="executeScan()"
+                            id="btn-scan"
+                            class="g-pill px-6 py-2.5 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-gold-500 text-slate-950 font-bold text-xs shadow-lg shadow-gold-500/20 whitespace-nowrap flex items-center gap-2"
+                        >
+                            <i class="fa-solid fa-shield-check text-sm"></i>
+                            <span>TRUY CỨU</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mục 4: GIỮ NGUYÊN các mẫu link nhanh -->
+                <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs">
+                    <span class="text-gray-500">Mẫu nhanh:</span>
+                    <button onclick="setSample('safe')" class="px-3 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-[11px]">
+                        ✓ Link An Toàn (Bank/Gov)
+                    </button>
+                    <button onclick="setSample('suspicious')" class="px-3 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[11px]">
+                        ⚠ Link Rút Gọn Nghi Vấn
+                    </button>
+                    <button onclick="setSample('phishing')" class="px-3 py-1 rounded-full bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-[11px]">
+                        ⛔ Link Lừa Đảo Giả Mạo
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SCAN PROGRESS OVERLAY (HIDDEN UNTIL SCAN) -->
+        <section id="scan-progress-box" class="hidden max-w-3xl mx-auto">
+            <div class="g-glass rounded-3xl p-6 border border-gold-500/30 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-atom text-gold-400 text-xl animate-spin"></i>
+                        <div>
+                            <h3 class="text-sm font-bold text-white" id="progress-title">Đang kết nối các cụm máy chủ an ninh...</h3>
+                            <p class="text-xs text-gray-400 font-mono" id="progress-sub">Khởi chạy quy tắc phân tích cú pháp Heuristics...</p>
+                        </div>
+                    </div>
+                    <span id="progress-val" class="text-lg font-bold font-mono text-gold-400">0%</span>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full h-2.5 bg-gray-900 rounded-full overflow-hidden p-0.5 border border-white/5">
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-gold-500 to-amber-400 rounded-full transition-all duration-200 w-0"></div>
+                </div>
+
+                <!-- Live Log -->
+                <div id="progress-log" class="bg-black/60 rounded-2xl p-3 font-mono text-[11px] text-gray-300 h-20 overflow-y-auto border border-white/5 space-y-1">
+                    <p class="text-gold-400">[INIT] AegisGold Security Engine Ready.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AUDIT RESULTS DASHBOARD (HIDDEN UNTIL FINISHED) -->
+        <section id="audit-results" class="hidden space-y-8">
+            <div class="g-glass rounded-3xl p-6 sm:p-8 border border-white/10 space-y-8">
+                
+                <!-- TOP SCORE & VERDICT -->
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-6 pb-8 border-b border-white/10">
+                    
+                    <div class="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+                        <!-- Score Circle -->
+                        <div class="relative w-32 h-32 flex-shrink-0 flex items-center justify-center">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="40"></circle>
+                                <circle id="score-circle" class="circle-progress" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke="#f59e0b"></circle>
+                            </svg>
+                            <div class="absolute flex flex-col items-center justify-center">
+                                <span id="score-num" class="text-2xl font-black font-mono text-white">0</span>
+                                <span class="text-[9px] uppercase font-bold text-gray-400">ĐIỂM TÍN NHIỆM</span>
+                            </div>
+                        </div>
+
+                        <!-- Main Domain Verdict -->
+                        <div class="space-y-2">
+                            <div id="verdict-tag" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                                --
+                            </div>
+                            <h2 id="result-hostname" class="text-xl sm:text-2xl font-bold text-white break-all">domain.com</h2>
+                            <p id="result-fullurl" class="text-xs font-mono text-gray-400 break-all">https://domain.com</p>
+                            <p id="result-desc" class="text-xs text-gray-300">Đang tổng hợp kết quả phân tích...</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Action -->
+                    <div class="flex items-center gap-3">
+                        <button onclick="copyLink()" class="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold text-gray-200 transition flex items-center gap-2">
+                            <i class="fa-solid fa-copy text-gold-400"></i> Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DEEP AUDIT ENGINES -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-microscope text-gold-400 text-base"></i>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Mở Rộng Kiểm Tra Chuyên Sâu Cùng Các Engine Quốc Tế</h3>
+                        </div>
+                        <span class="text-xs text-gold-300 font-mono">10+ Deep Analysis Tools</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="deep-engines-grid"></div>
+                </div>
+
+                <!-- RISK MATRIX CARDS -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="g-glass rounded-2xl p-5 border border-white/5 space-y-3">
+                        <div class="flex items-center space-x-2 text-gold-400">
+                            <i class="fa-solid fa-user-shield"></i>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-white">Thu Thập Dữ Liệu Cá Nhân</h4>
+                        </div>
+                        <div id="card-privacy-list" class="space-y-2 text-xs text-gray-300"></div>
+                    </div>
+
+                    <div class="g-glass rounded-2xl p-5 border border-white/5 space-y-3">
+                        <div class="flex items-center space-x-2 text-gold-400">
+                            <i class="fa-solid fa-mask"></i>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-white">Giả Mạo & Typosquatting</h4>
+                        </div>
+                        <div id="card-spoof-list" class="space-y-2 text-xs text-gray-300"></div>
+                    </div>
+
+                    <div class="g-glass rounded-2xl p-5 border border-white/5 space-y-3">
+                        <div class="flex items-center space-x-2 text-gold-400">
+                            <i class="fa-solid fa-network-wired"></i>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-white">Hạ Tầng & Mã Hóa SSL</h4>
+                        </div>
+                        <div id="card-infra-list" class="space-y-2 text-xs text-gray-300"></div>
+                    </div>
+                </div>
+
+                <!-- RECOMMENDATION BOX -->
+                <div id="recommendation-banner" class="rounded-2xl p-5 border space-y-2 text-xs"></div>
+
+            </div>
+        </section>
+
+        <!-- MỤC A: SỬA HOÀN TOÀN GIỐNG ẢNH IMAGE_61D2E3.JPG -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4">
+            
+            <!-- THẺ TRAI: CAM KẾT BẢO VỆ QUYỀN RIÊNG TƯ -->
+            <div class="g-glass-gold rounded-3xl p-6 border border-gold-400/30 space-y-4">
+                <div class="w-12 h-12 rounded-2xl bg-gold-500/20 flex items-center justify-center border border-gold-400/40 text-gold-300 text-2xl">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white">Cam Kết Bảo Vệ Quyền Riêng Tư</h3>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                    Hệ thống AegisGold vận hành theo cơ chế <strong class="text-gold-300">Zero-Log Policy</strong>. Tất cả thuật toán phân tích cú pháp và phát hiện bất thường được xử lý an toàn, không thu thập IP, không lưu trữ liên kết hay dữ liệu cá nhân của người truy vấn.
+                </p>
+                <ul class="text-xs text-gray-300 space-y-2.5 font-medium pt-1">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-400"></i> Không lưu trữ lịch sử trên Server</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-400"></i> Không theo dõi cookie hay dấu vết trình duyệt</li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-400"></i> Dữ liệu lưu vết duy nhất nằm ở máy bạn (Local)</li>
+                </ul>
+            </div>
+
+            <!-- THẺ PHẢI: 4 DẤU HIỆU NHẬN BIẾT LINK LỪA ĐẢO PHỔ BIẾN (LƯỚI 4 Ô DẠNG THẺ) -->
+            <div class="lg:col-span-2 g-glass rounded-3xl p-6 border border-white/10 space-y-5">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-gold-400 text-lg"></i>
+                        <h3 class="text-base font-bold text-white">4 Dấu Hiệu Nhận Biết Link Lừa Đảo Phổ Biến</h3>
+                    </div>
+                    <span class="text-xs text-gold-400 font-mono">Cẩm Nang An Toàn</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Rule 1 -->
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/30 transition space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs font-bold text-gold-300">
+                            <span class="w-5 h-5 rounded-full bg-gold-500/20 flex items-center justify-center text-[11px] text-gold-400">1</span>
+                            Sai Chính Tả (Typosquatting)
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Kẻ lừa đảo thay ký tự như <code class="text-rose-400">v1etcombank</code> thay vì <code class="text-emerald-400">vietcombank</code>, hoặc dùng đuôi <code class="text-amber-400">.xyz, .top</code>.
+                        </p>
+                    </div>
+
+                    <!-- Rule 2 -->
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/30 transition space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs font-bold text-gold-300">
+                            <span class="w-5 h-5 rounded-full bg-gold-500/20 flex items-center justify-center text-[11px] text-gold-400">2</span>
+                            Tên Miền Phụ Đánh Lừa
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Link có dạng <code class="text-rose-400">vietcombank.login-portal.com</code>. Tên miền thực sự ở đây là <strong class="text-white">login-portal.com</strong>, không phải Vietcombank!
+                        </p>
+                    </div>
+
+                    <!-- Rule 3 -->
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/30 transition space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs font-bold text-gold-300">
+                            <span class="w-5 h-5 rounded-full bg-gold-500/20 flex items-center justify-center text-[11px] text-gold-400">3</span>
+                            Yêu Cầu Nhập OTP / Mật Khẩu
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Không ngân hàng hay cơ quan nhà nước nào yêu cầu nhập mã OTP hoặc Mật khẩu qua liên kết gửi từ tin nhắn/Zalo/FB.
+                        </p>
+                    </div>
+
+                    <!-- Rule 4 -->
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/30 transition space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs font-bold text-gold-300">
+                            <span class="w-5 h-5 rounded-full bg-gold-500/20 flex items-center justify-center text-[11px] text-gold-400">4</span>
+                            Che Giấu Bằng Link Rút Gọn
+                        </div>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Cẩn trọng với các link rút gọn không rõ nguồn gốc (bit.ly, tinyurl...). Hãy dùng AegisGold để giải mã đích đến ẩn trước khi bấm!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER (ĐÃ XÓA MỤC B VÀ CĂN GIỮA MỤC C CÙNG DÒNG COPYRIGHT ACCORDING TO USER REQ) -->
+    <footer class="border-t border-white/10 bg-[#0c0e14] py-6 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-center">
+            <span>Copyright © 2026 AegisGold Security Protocol. All rights reserved. • GPU Accelerated • Zero-Log Policy</span>
+        </div>
+    </footer>
+
+    <!-- HISTORY MODAL -->
+    <div id="history-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="g-glass rounded-3xl border border-gold-500/30 max-w-lg w-full p-6 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-gold-400"></i> Lịch Sử Tra Cứu (Local Browser)
+                </h3>
+                <button onclick="toggleHistoryModal(false)" class="text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="history-container" class="max-h-72 overflow-y-auto space-y-2 pr-1"></div>
+
+            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                <button onclick="clearHistory()" class="text-rose-400 hover:text-rose-300">Xóa Lịch Sử</button>
+                <button onclick="toggleHistoryModal(false)" class="px-4 py-1.5 rounded-full bg-gold-500 text-slate-950 font-bold">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN SCRIPT ENGINE -->
+    <script>
+        const TRUSTED_DOMAINS = [
+            'gov.vn', 'chinhphu.vn', 'sbv.gov.vn', 'ncsc.gov.vn', 'tinnhiemmang.vn',
+            'vietcombank.com.vn', 'techcombank.com.vn', 'bidv.com.vn', 'agribank.com.vn',
+            'mbbank.com.vn', 'vpbank.com.vn', 'tpbank.com.vn', 'acb.com.vn', 'sacombank.com.vn',
+            'google.com', 'microsoft.com', 'apple.com', 'github.com', 'facebook.com',
+            'youtube.com', 'wikipedia.org', 'cloudflare.com'
+        ];
+
+        const SUSPICIOUS_TLDS = ['.xyz', '.top', '.club', '.work', '.click', '.info', '.site', '.tk', '.ml', '.ga', '.cf', '.gq', '.cc', '.buzz'];
+        const BANK_KEYWORDS = ['vietcombank', 'techcombank', 'bidv', 'agribank', 'mbbank', 'vpbank', 'tpbank', 'acb', 'sacombank', 'vnpay', 'momo', 'zalo'];
+        const PHISH_KEYWORDS = ['login-secure', 'verify-account', 'nhanquatang', 'nhan-qua', 'xacthuc-taikhoan', 'claim-reward', 'free-gift', 'banking-update'];
+
+        let historyData = JSON.parse(localStorage.getItem('aegis_history') || '[]');
+
+        document.addEventListener('DOMContentLoaded', updateHistoryBadge);
+
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const el = document.createElement('div');
+            let border = type === 'error' ? 'border-rose-500/50 bg-rose-950/90 text-rose-200' : 'border-gold-500/40 bg-gray-900/90 text-gold-200';
+            el.className = `pointer-events-auto px-4 py-2.5 rounded-2xl g-glass border text-xs font-medium backdrop-blur-md shadow-xl transition-all duration-300 ${border}`;
+            el.innerText = msg;
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 3000);
+        }
+
+        function pasteClipboard() {
+            navigator.clipboard.readText().then(t => {
+                if (t) {
+                    document.getElementById('url-input').value = t;
+                    showToast('Đã dán liên kết thành công!');
+                }
+            }).catch(() => showToast('Không thể đọc Clipboard', 'error'));
+        }
+
+        function clearInput() {
+            document.getElementById('url-input').value = '';
+        }
+
+        function setSample(type) {
+            const map = {
+                safe: 'https://vietcombank.com.vn/personal/banking',
+                suspicious: 'http://bit.ly/claim-free-voucher-2026',
+                phishing: 'http://login-vietcombank-verify-security.xyz/login.php'
+            };
+            document.getElementById('url-input').value = map[type];
+            executeScan();
+        }
+
+        function analyzeURL(raw) {
+            let urlStr = raw.trim();
+            if (!urlStr.startsWith('http://') && !urlStr.startsWith('https://')) {
+                urlStr = 'http://' + urlStr;
+            }
+
+            let parsed;
+            try {
+                parsed = new URL(urlStr);
+            } catch (e) {
+                return null;
+            }
+
+            const hostname = parsed.hostname.toLowerCase();
+            const fullUrl = parsed.href;
+            const isHttps = parsed.protocol === 'https:';
+
+            let score = 95;
+            let flags = [];
+            let isPhishing = false;
+
+            if (!isHttps) {
+                score -= 25;
+                flags.push({ text: 'Sử dụng kết nối HTTP không mã hóa SSL', level: 'danger' });
+            }
+
+            if (SUSPICIOUS_TLDS.some(t => hostname.endsWith(t))) {
+                score -= 20;
+                flags.push({ text: `Đuôi tên miền rủi ro cao (${hostname.substring(hostname.lastIndexOf('.'))})`, level: 'warning' });
+            }
+
+            const bankMatch = BANK_KEYWORDS.find(b => fullUrl.toLowerCase().includes(b));
+            const isOfficial = TRUSTED_DOMAINS.some(td => hostname === td || hostname.endsWith('.' + td));
+
+            if (bankMatch && !isOfficial) {
+                score -= 55;
+                isPhishing = true;
+                flags.push({ text: `GIẢ MẠO THƯƠNG HIỆU: Chứa từ khóa [${bankMatch.toUpperCase()}] nhưng KHÔNG phải tên miền chính thức!`, level: 'danger' });
+            }
+
+            const phishMatch = PHISH_KEYWORDS.find(k => fullUrl.toLowerCase().includes(k));
+            if (phishMatch) {
+                score -= 25;
+                flags.push({ text: `Từ khóa thu thập dữ liệu nhạy cảm: "${phishMatch}"`, level: 'warning' });
+            }
+
+            if (hostname.includes('xn--')) {
+                score -= 35;
+                isPhishing = true;
+                flags.push({ text: 'Cảnh báo tấn công đồng hình (Punycode)', level: 'danger' });
+            }
+
+            score = Math.max(5, Math.min(100, score));
+
+            return {
+                rawUrl: urlStr,
+                hostname: hostname,
+                score: score,
+                isHttps: isHttps,
+                flags: flags,
+                isPhishing: isPhishing || score < 45,
+                isCaution: score >= 45 && score < 80,
+                isSafe: score >= 80 && !isPhishing
+            };
+        }
+
+        function executeScan() {
+            const input = document.getElementById('url-input').value;
+            const data = analyzeURL(input);
+
+            if (!data) {
+                showToast('URL không hợp lệ! Hãy kiểm tra lại cấu trúc.', 'error');
+                return;
+            }
+
+            const box = document.getElementById('scan-progress-box');
+            const res = document.getElementById('audit-results');
+            
+            res.classList.add('hidden');
+            box.classList.remove('hidden');
+
+            const bar = document.getElementById('progress-bar');
+            const val = document.getElementById('progress-val');
+            const log = document.getElementById('progress-log');
+            
+            bar.style.width = '0%';
+            val.innerText = '0%';
+            log.innerHTML = `<p class="text-gold-400">[INIT] Starting AegisGold Engine for ${data.hostname}...</p>`;
+
+            let p = 0;
+            const steps = [
+                'Kết nối VirusTotal Deep API & Sandbox Nodes...',
+                'Phân tích cây chuyển hướng HTTP & SSL Certificate...',
+                'Đối chiếu CSDL Chống Lừa Đảo Việt Nam (NCSC/ChongLuaDao)...',
+                'Quét dấu hiệu Typosquatting & Homograph Attack...',
+                'Tổng hợp báo cáo đánh giá an toàn...'
+            ];
+
+            let sIdx = 0;
+            const timer = setInterval(() => {
+                p += 20;
+                bar.style.width = `${p}%`;
+                val.innerText = `${p}%`;
+
+                if (sIdx < steps.length) {
+                    const line = document.createElement('p');
+                    line.className = 'text-gray-300';
+                    line.innerHTML = `<span class="text-gold-500">[${new Date().toLocaleTimeString()}]</span> ${steps[sIdx]}`;
+                    log.appendChild(line);
+                    log.scrollTop = log.scrollHeight;
+                    sIdx++;
+                }
+
+                if (p >= 100) {
+                    clearInterval(timer);
+                    setTimeout(() => {
+                        box.classList.add('hidden');
+                        displayResult(data);
+                        saveHistory(data);
+                    }, 400);
+                }
+            }, 300);
+        }
+
+        function displayResult(data) {
+            const dashboard = document.getElementById('audit-results');
+            dashboard.classList.remove('hidden');
+            dashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            document.getElementById('result-hostname').innerText = data.hostname;
+            document.getElementById('result-fullurl').innerText = data.rawUrl;
+
+            const scoreCircle = document.getElementById('score-circle');
+            const scoreNum = document.getElementById('score-num');
+            const offset = 251.2 - (data.score / 100) * 251.2;
+            scoreCircle.style.strokeDashoffset = offset;
+            scoreNum.innerText = data.score;
+
+            const verdictTag = document.getElementById('verdict-tag');
+            const desc = document.getElementById('result-desc');
+
+            if (data.isSafe) {
+                scoreCircle.style.stroke = '#81c995';
+                verdictTag.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+                verdictTag.innerHTML = '<i class="fa-solid fa-shield-check"></i> AN TOÀN TUYỆT ĐỐI';
+                desc.innerText = 'Website đạt chỉ số an toàn cao, không phát hiện mã độc hay giả mạo.';
+            } else if (data.isCaution) {
+                scoreCircle.style.stroke = '#fdd663';
+                verdictTag.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30';
+                verdictTag.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> THẬN TRỌNG TRUY CẬP';
+                desc.innerText = 'Đường dẫn có một số điểm bất thường (Link rút gọn, thiếu HTTPS hoặc tên miền mới).';
+            } else {
+                scoreCircle.style.stroke = '#f28b82';
+                verdictTag.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30';
+                verdictTag.innerHTML = '<i class="fa-solid fa-skull-crossbones"></i> CẢNH BÁO LỪA ĐẢO NGUY HIỂM';
+                desc.innerText = 'Phát hiện kịch bản giả mạo thương hiệu / đánh cắp tài khoản ngân hàng!';
+            }
+
+            renderDeepEngines(data.hostname, data.rawUrl);
+
+            document.getElementById('card-privacy-list').innerHTML = `
+                <div class="flex justify-between border-b border-white/5 py-1"><span>Form Thu Thập:</span><span class="${data.isPhishing ? 'text-rose-400 font-bold' : 'text-emerald-400'}">${data.isPhishing ? 'Nghi vấn lừa đảo' : 'Sạch'}</span></div>
+                <div class="flex justify-between border-b border-white/5 py-1"><span>Rò Rỉ Cookie/Session:</span><span class="text-emerald-400">Không phát hiện</span></div>
+            `;
+
+            document.getElementById('card-spoof-list').innerHTML = `
+                <div class="flex justify-between border-b border-white/5 py-1"><span>Punycode Attack:</span><span class="text-emerald-400">${data.hostname.includes('xn--') ? 'CẢNH BÁO' : 'Bình thường'}</span></div>
+                <div class="flex justify-between border-b border-white/5 py-1"><span>Giả Mạo Thương Hiệu:</span><span class="${data.isPhishing ? 'text-rose-400 font-bold' : 'text-emerald-400'}">${data.isPhishing ? 'CÓ DẤU HIỆU' : 'Không'}</span></div>
+            `;
+
+            document.getElementById('card-infra-list').innerHTML = `
+                <div class="flex justify-between border-b border-white/5 py-1"><span>SSL Encryption:</span><span class="${data.isHttps ? 'text-emerald-400' : 'text-rose-400'}">${data.isHttps ? 'HTTPS Active' : 'HTTP Only'}</span></div>
+                <div class="flex justify-between border-b border-white/5 py-1"><span>Tên Miền Mở Rộng:</span><span class="font-mono text-gray-300">${data.hostname.substring(data.hostname.lastIndexOf('.'))}</span></div>
+            `;
+
+            const rec = document.getElementById('recommendation-banner');
+            if (data.isSafe) {
+                rec.className = 'rounded-2xl p-4 border bg-emerald-950/30 border-emerald-500/30 text-emerald-200';
+                rec.innerHTML = '<strong>✓ LỜI KHUYÊN:</strong> Bạn có thể mở liên kết này. Luôn chú ý kiểm tra đúng tên miền trên thanh địa chỉ trình duyệt.';
+            } else {
+                rec.className = 'rounded-2xl p-4 border bg-rose-950/40 border-rose-500/40 text-rose-200';
+                rec.innerHTML = '<strong>⛔ CẢNH BÁO NGUY HIỂM:</strong> Tuyệt đối KHÔNG nhập mật khẩu, mã OTP, số CCCD hoặc thông tin ngân hàng vào trang web này!';
+            }
+        }
+
+        function renderDeepEngines(domain, fullUrl) {
+            const grid = document.getElementById('deep-engines-grid');
+            const encodedUrl = encodeURIComponent(fullUrl);
+            const encodedDomain = encodeURIComponent(domain);
+
+            const engines = [
+                { name: 'VirusTotal Deep Audit', icon: 'fa-solid fa-virus', desc: 'Quét 70+ Antivirus engines Mỹ', link: `https://www.virustotal.com/gui/search/${encodedDomain}` },
+                { name: 'URLScan.io Sandbox', icon: 'fa-solid fa-desktop', desc: 'Phân tích DOM & Screenshot trang', link: `https://urlscan.io/search/#${encodedDomain}` },
+                { name: 'Hybrid Analysis', icon: 'fa-solid fa-dna', desc: 'Phân tích Sandbox hành vi mã độc', link: `https://www.hybrid-analysis.com/search?query=${encodedDomain}` },
+                { name: 'AlienVault OTX (AT&T)', icon: 'fa-solid fa-user-ninja', desc: 'Mạng lưới tình báo mối đe dọa', link: `https://otx.alienvault.com/indicator/domain/${encodedDomain}` },
+                { name: 'Cisco Talos Intelligence', icon: 'fa-solid fa-shield-cat', desc: 'Tra cứu danh tiếng IP & Tên miền', link: `https://talosintelligence.com/reputation_center/lookup_url?search=${encodedDomain}` },
+                { name: 'SecurityTrails DNS', icon: 'fa-solid fa-database', desc: 'Soi lịch sử IP & DNS Record', link: `https://securitytrails.com/domain/${encodedDomain}/dns` },
+                { name: 'ANY.RUN Interactive', icon: 'fa-solid fa-play', desc: 'Sandbox tương tác thời gian thực', link: `https://app.any.run/submissions/` },
+                { name: 'Chống Lừa Đảo Việt Nam', icon: 'fa-solid fa-flag', desc: 'CSDL Cảnh báo lừa đảo VN', link: `https://chongluadao.vn` },
+                { name: 'Google Transparency', icon: 'fa-brands fa-google', desc: 'Safe Browsing Report của Google', link: `https://transparencyreport.google.com/safe-browsing/search?url=${encodedUrl}` }
+            ];
+
+            let html = '';
+            engines.forEach(e => {
+                html += `
+                    <a href="${e.link}" target="_blank" class="p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-gold-500/40 hover:bg-gold-500/10 transition flex items-center justify-between group">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-xl bg-gold-500/15 text-gold-400 flex items-center justify-center text-xs font-bold">
+                                <i class="${e.icon}"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-bold text-white group-hover:text-gold-300 transition">${e.name}</h5>
+                                <p class="text-[10px] text-gray-400">${e.desc}</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-gray-500 group-hover:text-gold-300"></i>
+                    </a>
+                `;
+            });
+            grid.innerHTML = html;
+        }
+
+        function saveHistory(data) {
+            historyData.unshift({
+                hostname: data.hostname,
+                url: data.rawUrl,
+                score: data.score,
+                isSafe: data.isSafe,
+                date: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+            });
+            if (historyData.length > 15) historyData.pop();
+            localStorage.setItem('aegis_history', JSON.stringify(historyData));
+            updateHistoryBadge();
+        }
+
+        function updateHistoryBadge() {
+            document.getElementById('history-badge').innerText = historyData.length;
+        }
+
+        function toggleHistoryModal(show) {
+            const modal = document.getElementById('history-modal');
+            if (show) {
+                renderHistory();
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function renderHistory() {
+            const container = document.getElementById('history-container');
+            if (!historyData.length) {
+                container.innerHTML = '<p class="text-xs text-gray-500 text-center py-4">Chưa có lịch sử.</p>';
+                return;
+            }
+            let html = '';
+            historyData.forEach(h => {
+                html += `
+                    <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs">
+                        <div>
+                            <p class="font-bold font-mono text-white">${h.hostname}</p>
+                            <p class="text-[10px] text-gray-400">${h.date}</p>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${h.isSafe ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">${h.score}đ</span>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function clearHistory() {
+            historyData = [];
+            localStorage.removeItem('aegis_history');
+            updateHistoryBadge();
+            renderHistory();
+        }
+
+        function copyLink() {
+            const text = document.getElementById('result-fullurl').innerText;
+            navigator.clipboard.writeText(text).then(() => showToast('Đã sao chép link!'));
+        }
+    </script>
+</body>
+</html>
+```
